@@ -76,17 +76,59 @@ foreach ($hotels as $hotel) {
                 </thead>
                 <tbody>
                     <?php foreach ($hotels as $hotel) : ?>
+                        <?php $have_parking = $_GET['parking'] ?>
                         <tr>
+
+                        <?php if ($have_parking == 'all') : ?>
                             <th scope="row"><?= $hotel["name"] ?></th>
                             <td><?= $hotel["description"] ?></td>
-                            <td><?= $hotel["parking"] ? "Si" : "No"?></td>
+                            <td><?= $hotel["parking"] ? "Si" : "No" ?></td>
                             <td><?= $hotel["vote"] ?></td>
                             <td><?= $hotel["distance_to_center"] ?></td>
+
+                        <?php elseif ($have_parking == 'yes' && $hotel['parking']) : ?>
+                            <th scope="row"><?= $hotel["name"] ?></th>
+                            <td><?= $hotel["description"] ?></td>
+                            <td><?= $hotel["parking"] ? "Si" : "No" ?></td>
+                            <td><?= $hotel["vote"] ?></td>
+                            <td><?= $hotel["distance_to_center"] ?></td>
+
+                        <?php elseif ($have_parking == 'no' && !$hotel['parking']) : ?>
+                            <th scope="row"><?= $hotel["name"] ?></th>
+                            <td><?= $hotel["description"] ?></td>
+                            <td><?= $hotel["parking"] ? "Si" : "No" ?></td>
+                            <td><?= $hotel["vote"] ?></td>
+                            <td><?= $hotel["distance_to_center"] ?></td>
+
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
         </div>
+
+
+        <form method="GET" class="mt-5">
+
+            <div class="d-flex fs-4 gap-4 justify-content-center">
+                <div>
+                    Parking:
+                </div>
+
+                <select name="parking" id="parking" class="form-select">
+                    <option value="all" selected>All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+
+
+        </form>
     </div>
 
 
